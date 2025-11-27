@@ -1,0 +1,5 @@
+{
+  "name": "SpecWeaver",
+  "description": "An intelligent tool to convert OpenAPI specifications to comprehensive Word documentation and vice-versa using Gemini AI.",
+  "requestFramePermissions": []
+}
