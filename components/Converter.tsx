@@ -16,13 +16,11 @@ import {
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { generateConversionStream, validateSpecFidelity, generateDocxBlob } from '../services/geminiService';
-import { ConversionMode, ConversionOptions, SpecFormat, Tone } from '../types';
+import { ConversionMode, ConversionOptions, SpecFormat } from '../types';
 
 const INITIAL_OPTIONS: ConversionOptions = {
   includeExamples: true,
   includeAuthentication: true,
-  targetAudience: "Developers",
-  tone: Tone.TECHNICAL,
   outputFormat: SpecFormat.YAML,
 };
 
@@ -254,6 +252,9 @@ paths:
                       ))}
                     </div>
                   </div>
+                )}
+                {mode === ConversionMode.SPEC_TO_DOC && (
+                     <div className="text-sm text-slate-500 italic">No additional options for documentation generation.</div>
                 )}
               </div>
             )}

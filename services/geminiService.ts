@@ -93,29 +93,18 @@
       }
 
       // Handle oneOf / anyOf (Polymorphism) - We treat them as potential options
-      // This isn't perfect for visual flattening but ensures data isn't hidden.
       const polymorphic = resolved.oneOf || resolved.anyOf;
       if (polymorphic && Array.isArray(polymorphic)) {
           polymorphic.forEach((s: any, idx: number) => {
-              // We process these as if they are merged, but we might want to indicate option?
-              // For simplicity in a flat table, we just list the potential paths.
-              // If paths overlap, they will appear twice, which is actually correct for "Option A has id, Option B has id".
               flattenSchema(s, rootSpec, currentPath, isRequired, rows, new Set(visitedRefs));
           });
-          // If the root itself didn't have properties but was just a oneOf wrapper, we might be done unless we want to label the container
       }
 
       const type = resolved.type || (resolved.properties ? 'object' : 'string');
 
       // Add row for the current node
-      // Condition: 
-      // 1. It has a path (not root) OR
-      // 2. It is root AND it is a Ref (we want to show the ref badge) OR
-      // 3. It is root AND it is an Array (we want to show [] root)
       if (currentPath || originalRef || type === 'array') {
-          // However, we usually skip the *exact* empty root row for Objects unless it's a ref holder
           if (currentPath || (type !== 'object' && type !== undefined) || originalRef) {
-              // Avoid duplicate rows if oneOf caused recursion on same path
               const exists = rows.find(r => r.path === currentPath && r.type === type && r.description === (resolved.description || ''));
               if (!exists) {
                   rows.push({
@@ -219,7 +208,6 @@
               if (cleanPart === '<key>' || cleanPart === '*') {
                   if (!current.additionalProperties) {
                       current.additionalProperties = { type: 'object', properties: {} };
-                      // If it was assumed to be an object with props, we might need to clean up, but usually mixed is rare
                   }
                   current = current.additionalProperties;
 
@@ -944,7 +932,7 @@
     options: ConversionOptions
   ): Promise<string> => {
     if (!content.trim()) return "";
-    await new Promise(resolve => setTimeout(resolve, 300));
+    // Removed delay: await new Promise(resolve => setTimeout(resolve, 300));
 
     try {
       if (mode === ConversionMode.SPEC_TO_DOC) {

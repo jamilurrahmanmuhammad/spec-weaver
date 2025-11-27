@@ -8,17 +8,9 @@ export enum SpecFormat {
   JSON = 'JSON',
 }
 
-export enum Tone {
-  FORMAL = 'Formal',
-  TECHNICAL = 'Technical',
-  FRIENDLY = 'Friendly/Tutorial',
-}
-
 export interface ConversionOptions {
   includeExamples: boolean;
   includeAuthentication: boolean;
-  targetAudience: string;
-  tone: Tone;
   outputFormat: SpecFormat; // Only relevant for Doc -> Spec
 }
 
