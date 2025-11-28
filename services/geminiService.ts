@@ -1,4 +1,8 @@
-  import yaml from 'js-yaml';
+// LOCAL DETERMINISTIC PARSING SERVICE
+// This service performs purely local string manipulation and parsing.
+// It does NOT communicate with any external AI or LLM APIs.
+
+import yaml from 'js-yaml';
   import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, HeadingLevel, BorderStyle, WidthType, AlignmentType, VerticalAlign } from 'docx';
   import { ConversionMode, ConversionOptions, SpecFormat } from "../types";
 
